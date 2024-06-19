@@ -2,9 +2,11 @@ package dk.emilvn.exam;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
-class ProgExamBackendApplicationTests {
+@ActiveProfiles("test")
+class ExamApplicationTests {
 
 	@Test
 	void contextLoads() {

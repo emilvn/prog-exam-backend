@@ -1,2 +1,7 @@
-package dk.emilvn.exam.error;public class NotFoundException {
+package dk.emilvn.exam.error;
+
+public class NotFoundException extends RuntimeException{
+    public NotFoundException(String message) {
+        super(message);
+    }
 }
