@@ -24,7 +24,7 @@ public class Participant {
     private LocalDate birthDate;
     private String club;
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     private List<Discipline> disciplines = new ArrayList<>();
 
     public Participant(Long id, String name, boolean isMale, LocalDate birthDate, String club) {
@@ -49,7 +49,7 @@ public class Participant {
     }
 
     public void removeDiscipline(Discipline discipline) {
-        disciplines.remove(discipline);
+        disciplines.removeIf(d -> d.getId().equals(discipline.getId()));
     }
 
     public boolean hasDiscipline(Discipline discipline) {

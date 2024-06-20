@@ -135,6 +135,7 @@ public class ParticipantService {
                 .toList();
     }
 
+    @CacheEvict(value = cacheName, allEntries = true)
     public List<DisciplineDTO> addDiscipline(Long id, Long disciplineId) {
         var participant = participantRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Participant not found"));
@@ -150,6 +151,7 @@ public class ParticipantService {
                 .toList();
     }
 
+    @CacheEvict(value = cacheName, allEntries = true)
     public List<DisciplineDTO> removeDiscipline(Long id, Long disciplineId) {
         var participant = participantRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Participant not found"));
