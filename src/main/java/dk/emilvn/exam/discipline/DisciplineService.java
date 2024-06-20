@@ -1,6 +1,8 @@
 package dk.emilvn.exam.discipline;
 
 import dk.emilvn.exam.error.NotFoundException;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -44,11 +46,15 @@ public class DisciplineService {
                 .orElseThrow(() -> new NotFoundException("Discipline not found"));
     }
 
+    @CachePut(value = cacheName, key = "#result.id")
+    @CacheEvict(value = cacheName, key = "'findAll'", beforeInvocation = true)
     public DisciplineDTO create(DisciplineDTO disciplineDTO) {
         var discipline = fromDTO(disciplineDTO);
         return toDTO(disciplineRepository.save(discipline));
     }
 
+    @CachePut(value = cacheName, key = "#id")
+    @CacheEvict(value = cacheName, key = "'findAll'", beforeInvocation = true)
     public DisciplineDTO update(Long id, DisciplineDTO disciplineDTO) {
         var discipline = disciplineRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Discipline not found"));
@@ -59,6 +65,7 @@ public class DisciplineService {
         return toDTO(disciplineRepository.save(discipline));
     }
 
+    @CacheEvict(value = cacheName, allEntries = true)
     public void delete(Long id) {
         if(disciplineRepository.existsById(id)) {
             disciplineRepository.deleteById(id);
