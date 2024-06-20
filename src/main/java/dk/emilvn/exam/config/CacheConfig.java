@@ -16,8 +16,7 @@ public class CacheConfig {
     }
 
     private String[] getCacheNames() {
-        // Add more cache names here if needed
-        return new String[]{"exampleCache"};
+        return new String[]{"participantCache", "disciplineCache", "resultCache"};
     }
 
 }
