@@ -29,8 +29,8 @@ public class ParticipantController {
     }
 
     @PostMapping("/participants")
-    public ResponseEntity<ParticipantDTO> create(@RequestBody ParticipantDTO exampleDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(participantService.create(exampleDTO));
+    public ResponseEntity<ParticipantDTO> create(@RequestBody ParticipantDTO participantDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(participantService.create(participantDTO));
     }
 
     @PutMapping("/participants/{id}")
@@ -60,8 +60,7 @@ public class ParticipantController {
     }
 
     @DeleteMapping("/participants/{id}/disciplines/{disciplineId}")
-    public ResponseEntity<Void> removeDiscipline(@PathVariable Long id, @PathVariable Long disciplineId) {
-        participantService.removeDiscipline(id, disciplineId);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<List<DisciplineDTO>> removeDiscipline(@PathVariable Long id, @PathVariable Long disciplineId) {
+        return ResponseEntity.ok(participantService.removeDiscipline(id, disciplineId));
     }
 }

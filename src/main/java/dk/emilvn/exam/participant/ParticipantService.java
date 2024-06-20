@@ -71,51 +71,51 @@ public class ParticipantService {
 
     @CachePut(value = cacheName, key = "#result.id()")
     @CacheEvict(value = cacheName, allEntries = true, beforeInvocation = true)
-    public ParticipantDTO create(ParticipantDTO exampleDTO) {
-        var example = fromDTO(exampleDTO);
-        var savedExample = participantRepository.save(example);
+    public ParticipantDTO create(ParticipantDTO participantDTO) {
+        var participant = fromDTO(participantDTO);
+        var savedParticipant = participantRepository.save(participant);
 
-        return toDTO(savedExample);
+        return toDTO(savedParticipant);
     }
 
     @CachePut(value = cacheName, key = "#id")
     @CacheEvict(value = cacheName, allEntries = true, beforeInvocation = true)
-    public ParticipantDTO update(Long id, ParticipantDTO exampleDTO) {
-        var example = participantRepository.findById(id)
+    public ParticipantDTO update(Long id, ParticipantDTO participantDTO) {
+        var participant = participantRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Participant not found"));
 
-        example.setName(exampleDTO.name());
-        example.setMale(exampleDTO.isMale());
-        example.setBirthDate(exampleDTO.birthDate());
-        example.setClub(exampleDTO.club());
+        participant.setName(participantDTO.name());
+        participant.setMale(participantDTO.isMale());
+        participant.setBirthDate(participantDTO.birthDate());
+        participant.setClub(participantDTO.club());
 
-        participantRepository.save(example);
+        participantRepository.save(participant);
 
-        return toDTO(example);
+        return toDTO(participant);
     }
 
     @CachePut(value = cacheName, key = "#id")
     @CacheEvict(value = cacheName, allEntries = true, beforeInvocation = true)
-    public ParticipantDTO patch(Long id, ParticipantDTO exampleDTO) {
-        var example = participantRepository.findById(id)
+    public ParticipantDTO patch(Long id, ParticipantDTO participantDTO) {
+        var participant = participantRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Participant not found"));
 
-        if(exampleDTO.name() != null) {
-            example.setName(exampleDTO.name());
+        if(participantDTO.name() != null) {
+            participant.setName(participantDTO.name());
         }
-        if(exampleDTO.isMale() != null) {
-            example.setMale(exampleDTO.isMale());
+        if(participantDTO.isMale() != null) {
+            participant.setMale(participantDTO.isMale());
         }
-        if(exampleDTO.birthDate() != null) {
-            example.setBirthDate(exampleDTO.birthDate());
+        if(participantDTO.birthDate() != null) {
+            participant.setBirthDate(participantDTO.birthDate());
         }
-        if(exampleDTO.club() != null) {
-            example.setClub(exampleDTO.club());
+        if(participantDTO.club() != null) {
+            participant.setClub(participantDTO.club());
         }
 
-        participantRepository.save(example);
+        participantRepository.save(participant);
 
-        return toDTO(example);
+        return toDTO(participant);
     }
 
     @CacheEvict(value = cacheName, allEntries = true)

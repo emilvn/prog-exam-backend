@@ -170,7 +170,7 @@ class ParticipantControllerIntegrationTest {
         webTestClient.delete()
                 .uri("/participants/{id}/disciplines/{disciplineId}", participantId, disciplineId)
                 .exchange()
-                .expectStatus().isNoContent()
+                .expectStatus().isOk()
                 .expectBodyList(DisciplineDTO.class)
                 .value(response -> {
                     assertEquals(0, response.size());
