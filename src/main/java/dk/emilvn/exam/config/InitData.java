@@ -45,20 +45,20 @@ public class InitData implements CommandLineRunner {
     }
 
     private void init() {
-        var hundredMetresRun = disciplineService.create(new DisciplineDTO(null, "100-meterløb", ResultType.TIME_IN_SECONDS));
-        var highJump = disciplineService.create(new DisciplineDTO(null, "Højdespring", ResultType.HEIGHT_IN_METRES));
-        var javelinThrow = disciplineService.create(new DisciplineDTO(null, "Spydkast", ResultType.DISTANCE_IN_METRES));
-        var longJump = disciplineService.create(new DisciplineDTO(null, "Længdespring", ResultType.LENGTH_IN_METRES));
-        var shotPut = disciplineService.create(new DisciplineDTO(null, "Kuglestød", ResultType.DISTANCE_IN_METRES));
-        var fourHundredMetresRun = disciplineService.create(new DisciplineDTO(null, "400-meterløb", ResultType.TIME_IN_SECONDS));
-        var discusThrow = disciplineService.create(new DisciplineDTO(null, "Diskoskast", ResultType.DISTANCE_IN_METRES));
-        var poleVault = disciplineService.create(new DisciplineDTO(null, "Stangspring", ResultType.HEIGHT_IN_METRES));
-        var tripleJump = disciplineService.create(new DisciplineDTO(null, "Trespring", ResultType.LENGTH_IN_METRES));
-        var hammerThrow = disciplineService.create(new DisciplineDTO(null, "Hammerkast", ResultType.DISTANCE_IN_METRES));
-        var eightHundredMetresRun = disciplineService.create(new DisciplineDTO(null, "800-meterløb", ResultType.TIME_IN_SECONDS));
+        var hundredMetresRun = disciplineService.create(new DisciplineDTO(null, "100-meterløb", ResultType.TIME_IN_MILLISECONDS));
+        var highJump = disciplineService.create(new DisciplineDTO(null, "Højdespring", ResultType.HEIGHT_IN_CENTIMETRES));
+        var javelinThrow = disciplineService.create(new DisciplineDTO(null, "Spydkast", ResultType.DISTANCE_IN_CENTIMETRES));
+        var longJump = disciplineService.create(new DisciplineDTO(null, "Længdespring", ResultType.LENGTH_IN_CENTIMETRES));
+        var shotPut = disciplineService.create(new DisciplineDTO(null, "Kuglestød", ResultType.DISTANCE_IN_CENTIMETRES));
+        var fourHundredMetresRun = disciplineService.create(new DisciplineDTO(null, "400-meterløb", ResultType.TIME_IN_MILLISECONDS));
+        var discusThrow = disciplineService.create(new DisciplineDTO(null, "Diskoskast", ResultType.DISTANCE_IN_CENTIMETRES));
+        var poleVault = disciplineService.create(new DisciplineDTO(null, "Stangspring", ResultType.HEIGHT_IN_CENTIMETRES));
+        var tripleJump = disciplineService.create(new DisciplineDTO(null, "Trespring", ResultType.LENGTH_IN_CENTIMETRES));
+        var hammerThrow = disciplineService.create(new DisciplineDTO(null, "Hammerkast", ResultType.DISTANCE_IN_CENTIMETRES));
+        var eightHundredMetresRun = disciplineService.create(new DisciplineDTO(null, "800-meterløb", ResultType.TIME_IN_MILLISECONDS));
         var decathlon = disciplineService.create(new DisciplineDTO(null, "Decathlon", ResultType.POINTS));
         var heptathlon = disciplineService.create(new DisciplineDTO(null, "Heptathlon", ResultType.POINTS));
-        var marathon = disciplineService.create(new DisciplineDTO(null, "Maraton", ResultType.TIME_IN_SECONDS));
+        var marathon = disciplineService.create(new DisciplineDTO(null, "Maraton", ResultType.TIME_IN_MILLISECONDS));
 
         var anders = participantService.create(new ParticipantDTO(null, "Anders", true, LocalDate.of(1990, 1, 20), "Aarhus 1900"));
         participantService.addDiscipline(anders.id(), hundredMetresRun.id());
@@ -89,27 +89,27 @@ public class InitData implements CommandLineRunner {
         participantService.addDiscipline(erik.id(), shotPut.id());
 
 
-        var andersHundredMetresResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(1), 10.5, ResultType.TIME_IN_SECONDS, anders.id(), hundredMetresRun.id()));
-        var andersFourHundredMetresResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(2), 45.5, ResultType.TIME_IN_SECONDS, anders.id(), fourHundredMetresRun.id()));
-        var andersEightHundredMetresResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(3), 120.5, ResultType.TIME_IN_SECONDS, anders.id(), eightHundredMetresRun.id()));
+        var andersHundredMetresResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(1), 10500, ResultType.TIME_IN_MILLISECONDS, anders.id(), hundredMetresRun.id()));
+        var andersFourHundredMetresResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(2), 45500, ResultType.TIME_IN_MILLISECONDS, anders.id(), fourHundredMetresRun.id()));
+        var andersEightHundredMetresResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(3), 120500, ResultType.TIME_IN_MILLISECONDS, anders.id(), eightHundredMetresRun.id()));
 
-        var benteHighJumpResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(4), 1.5, ResultType.HEIGHT_IN_METRES, bente.id(), highJump.id()));
-        var bentePoleVaultResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(5), 3.5, ResultType.HEIGHT_IN_METRES, bente.id(), poleVault.id()));
-        var benteTripleJumpResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(6), 12.5, ResultType.LENGTH_IN_METRES, bente.id(), tripleJump.id()));
-        var benteLongJumpResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(7), 6.5, ResultType.LENGTH_IN_METRES, bente.id(), longJump.id()));
+        var benteHighJumpResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(4), 150, ResultType.HEIGHT_IN_CENTIMETRES, bente.id(), highJump.id()));
+        var bentePoleVaultResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(5), 350, ResultType.HEIGHT_IN_CENTIMETRES, bente.id(), poleVault.id()));
+        var benteTripleJumpResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(6), 1250, ResultType.LENGTH_IN_CENTIMETRES, bente.id(), tripleJump.id()));
+        var benteLongJumpResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(7), 650, ResultType.LENGTH_IN_CENTIMETRES, bente.id(), longJump.id()));
 
-        var clausJavelinThrowResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(8), 50.5, ResultType.DISTANCE_IN_METRES, claus.id(), javelinThrow.id()));
-        var clausDiscusThrowResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(9), 40.5, ResultType.DISTANCE_IN_METRES, claus.id(), discusThrow.id()));
-        var clausShotPutResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(10), 10.5, ResultType.DISTANCE_IN_METRES, claus.id(), shotPut.id()));
-        var clausHammerThrowResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(11), 30.5, ResultType.DISTANCE_IN_METRES, claus.id(), hammerThrow.id()));
+        var clausJavelinThrowResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(8), 5050, ResultType.DISTANCE_IN_CENTIMETRES, claus.id(), javelinThrow.id()));
+        var clausDiscusThrowResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(9), 4050, ResultType.DISTANCE_IN_CENTIMETRES, claus.id(), discusThrow.id()));
+        var clausShotPutResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(10), 1050, ResultType.DISTANCE_IN_CENTIMETRES, claus.id(), shotPut.id()));
+        var clausHammerThrowResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(11), 3050, ResultType.DISTANCE_IN_CENTIMETRES, claus.id(), hammerThrow.id()));
 
-        var dortheMarathonResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(12), 120.5*60, ResultType.TIME_IN_SECONDS, dorthe.id(), marathon.id()));
+        var dortheMarathonResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(12), 120*60*1000, ResultType.TIME_IN_MILLISECONDS, dorthe.id(), marathon.id()));
 
-        var erikDecathlonResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(13), 5000.5, ResultType.POINTS, erik.id(), decathlon.id()));
-        var erikHeptathlonResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(14), 4000.5, ResultType.POINTS, erik.id(), heptathlon.id()));
-        var erikJavelinThrowResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(15), 60.5, ResultType.DISTANCE_IN_METRES, erik.id(), javelinThrow.id()));
-        var erikDiscusThrowResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(16), 50.5, ResultType.DISTANCE_IN_METRES, erik.id(), discusThrow.id()));
-        var erikShotPutResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(17), 15.5, ResultType.DISTANCE_IN_METRES, erik.id(), shotPut.id()));
+        var erikDecathlonResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(13), 5000, ResultType.POINTS, erik.id(), decathlon.id()));
+        var erikHeptathlonResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(14), 4000, ResultType.POINTS, erik.id(), heptathlon.id()));
+        var erikJavelinThrowResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(15), 6050, ResultType.DISTANCE_IN_CENTIMETRES, erik.id(), javelinThrow.id()));
+        var erikDiscusThrowResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(16), 5050, ResultType.DISTANCE_IN_CENTIMETRES, erik.id(), discusThrow.id()));
+        var erikShotPutResult = resultService.create(new ResultDTO(null, LocalDate.now().minusDays(17), 1550, ResultType.DISTANCE_IN_CENTIMETRES, erik.id(), shotPut.id()));
     }
 
 }

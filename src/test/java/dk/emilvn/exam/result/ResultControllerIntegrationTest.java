@@ -29,7 +29,7 @@ class ResultControllerIntegrationTest {
 
     @BeforeEach
     void setUp(@Autowired ParticipantRepository participantRepository, @Autowired DisciplineRepository disciplineRepository, @Autowired ResultRepository resultRepository) {
-        var discipline = new Discipline("Discipline", ResultType.TIME_IN_SECONDS);
+        var discipline = new Discipline("Discipline", ResultType.TIME_IN_MILLISECONDS);
         var savedDiscipline = disciplineRepository.save(discipline);
         disciplineId = savedDiscipline.getId();
 
@@ -40,8 +40,8 @@ class ResultControllerIntegrationTest {
         participantRepository.save(participant2);
         participantId = savedParticipant.getId();
 
-        var result1 = new Result(LocalDate.now(), 10.0, ResultType.TIME_IN_SECONDS, savedParticipant, savedDiscipline);
-        var result2 = new Result(LocalDate.now(), 10.0, ResultType.TIME_IN_SECONDS, savedParticipant, savedDiscipline);
+        var result1 = new Result(LocalDate.now(), 100, ResultType.TIME_IN_MILLISECONDS, savedParticipant, savedDiscipline);
+        var result2 = new Result(LocalDate.now(), 100, ResultType.TIME_IN_MILLISECONDS, savedParticipant, savedDiscipline);
         var savedResult = resultRepository.save(result1);
         resultRepository.save(result2);
         resultId = savedResult.getId();
@@ -81,7 +81,7 @@ class ResultControllerIntegrationTest {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(ResultDTO.class)
-                .isEqualTo(new ResultDTO(resultId, LocalDate.now(), 10.0, ResultType.TIME_IN_SECONDS, participantId, disciplineId));
+                .isEqualTo(new ResultDTO(resultId, LocalDate.now(), 100, ResultType.TIME_IN_MILLISECONDS, participantId, disciplineId));
     }
 
     @Test
@@ -106,7 +106,7 @@ class ResultControllerIntegrationTest {
 
     @Test
     void givenResultDTO_whenPost_thenReturnCreatedResult() {
-        var resultDTO = new ResultDTO(null, LocalDate.now(), 10.0, ResultType.TIME_IN_SECONDS, participantId, disciplineId);
+        var resultDTO = new ResultDTO(null, LocalDate.now(), 100, ResultType.TIME_IN_MILLISECONDS, participantId, disciplineId);
 
         webTestClient.post()
                 .uri("/results")
@@ -114,12 +114,12 @@ class ResultControllerIntegrationTest {
                 .exchange()
                 .expectStatus().isCreated()
                 .expectBody(ResultDTO.class)
-                .isEqualTo(new ResultDTO(resultId + 2, LocalDate.now(), 10.0, ResultType.TIME_IN_SECONDS, participantId, disciplineId));
+                .isEqualTo(new ResultDTO(resultId + 2, LocalDate.now(), 100, ResultType.TIME_IN_MILLISECONDS, participantId, disciplineId));
     }
 
     @Test
     void givenResultDTO_whenPut_thenReturnUpdatedResult() {
-        var resultDTO = new ResultDTO(resultId, LocalDate.now(), 20.0, ResultType.TIME_IN_SECONDS, participantId, disciplineId);
+        var resultDTO = new ResultDTO(resultId, LocalDate.now(), 200, ResultType.TIME_IN_MILLISECONDS, participantId, disciplineId);
 
         webTestClient.put()
                 .uri("/results/{id}", resultId)
@@ -132,7 +132,7 @@ class ResultControllerIntegrationTest {
 
     @Test
     void givenResultDTO_whenPatch_thenReturnPartiallyUpdatedResult() {
-        var resultDTO = new ResultDTO(resultId, null, 33.0, null, null, null);
+        var resultDTO = new ResultDTO(resultId, null, 330, null, null, null);
 
         webTestClient.patch()
                 .uri("/results/{id}", resultId)
@@ -144,8 +144,8 @@ class ResultControllerIntegrationTest {
                     assertNotNull(response);
                     assertEquals(resultId, response.id());
                     assertEquals(LocalDate.now(), response.date());
-                    assertEquals(33.0, response.result());
-                    assertEquals(ResultType.TIME_IN_SECONDS, response.resultType());
+                    assertEquals(330, response.result());
+                    assertEquals(ResultType.TIME_IN_MILLISECONDS, response.resultType());
                     assertEquals(participantId, response.participantId());
                     assertEquals(disciplineId, response.disciplineId());
                 });
@@ -166,7 +166,7 @@ class ResultControllerIntegrationTest {
 
     @Test
     void givenInvalidParticipantId_whenPost_thenNotFound() {
-        var resultDTO = new ResultDTO(null, LocalDate.now(), 10.0, ResultType.TIME_IN_SECONDS, 0L, disciplineId);
+        var resultDTO = new ResultDTO(null, LocalDate.now(), 100, ResultType.TIME_IN_MILLISECONDS, 0L, disciplineId);
 
         webTestClient.post()
                 .uri("/results")
@@ -177,7 +177,7 @@ class ResultControllerIntegrationTest {
 
     @Test
     void givenParticipantIdWithWrongDiscipline_whenPost_thenBadRequest() {
-        var resultDTO = new ResultDTO(null, LocalDate.now(), 10.0, ResultType.TIME_IN_SECONDS, participantId+1, disciplineId);
+        var resultDTO = new ResultDTO(null, LocalDate.now(), 100, ResultType.TIME_IN_MILLISECONDS, participantId+1, disciplineId);
 
         webTestClient.post()
                 .uri("/results")

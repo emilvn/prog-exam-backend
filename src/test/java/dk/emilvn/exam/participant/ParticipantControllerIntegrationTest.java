@@ -31,7 +31,7 @@ class ParticipantControllerIntegrationTest {
     void setUp(@Autowired ParticipantRepository participantRepository, @Autowired DisciplineRepository disciplineRepository) {
         var participant1 = new Participant("Participant1", true, LocalDate.of(1996, 1, 1), "Penguin");
         var participant2 = new Participant("Participant2", true, LocalDate.of(1996, 1, 1), "Penguin");
-        var discipline = new Discipline("Discipline", ResultType.TIME_IN_SECONDS);
+        var discipline = new Discipline("Discipline", ResultType.TIME_IN_MILLISECONDS);
 
         var savedParticipant = participantRepository.save(participant1);
         participantRepository.save(participant2);
@@ -154,7 +154,7 @@ class ParticipantControllerIntegrationTest {
     void givenDisciplineDTO_whenAddDiscipline_thenReturnListOfParticipantDisciplines() {
         webTestClient.put()
                 .uri("/participants/{id}/disciplines", participantId)
-                .bodyValue(new DisciplineDTO(disciplineId, "Discipline", ResultType.TIME_IN_SECONDS))
+                .bodyValue(new DisciplineDTO(disciplineId, "Discipline", ResultType.TIME_IN_MILLISECONDS))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBodyList(DisciplineDTO.class)

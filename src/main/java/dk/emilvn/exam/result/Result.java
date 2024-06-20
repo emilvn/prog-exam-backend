@@ -4,7 +4,6 @@ package dk.emilvn.exam.result;
 import dk.emilvn.exam.discipline.Discipline;
 import dk.emilvn.exam.participant.Participant;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +19,7 @@ public class Result {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate date;
-    private double result;
+    private int result;
 
     @Enumerated(EnumType.STRING)
     private ResultType resultType;
@@ -31,12 +30,12 @@ public class Result {
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private Discipline discipline;
 
-    public Result(Long id, LocalDate date, double result, ResultType resultType, Participant participant, Discipline discipline) {
+    public Result(Long id, LocalDate date, int result, ResultType resultType, Participant participant, Discipline discipline) {
         this(date, result, resultType, participant, discipline);
         this.id = id;
     }
 
-    public Result(LocalDate date, double result, ResultType resultType, Participant participant, Discipline discipline) {
+    public Result(LocalDate date, int result, ResultType resultType, Participant participant, Discipline discipline) {
         validate(date, result, resultType, participant, discipline);
         this.date = date;
         this.result = result;

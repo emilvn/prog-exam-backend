@@ -22,8 +22,8 @@ class DisciplineControllerIntegrationTest {
 
     @BeforeEach
     void setUp(@Autowired DisciplineRepository disciplineRepository) {
-        var discipline1 = new Discipline("Discipline1", ResultType.TIME_IN_SECONDS);
-        var discipline2 = new Discipline("Discipline2", ResultType.DISTANCE_IN_METRES);
+        var discipline1 = new Discipline("Discipline1", ResultType.TIME_IN_MILLISECONDS);
+        var discipline2 = new Discipline("Discipline2", ResultType.DISTANCE_IN_CENTIMETRES);
         var savedDiscipline = disciplineRepository.save(discipline1);
         disciplineRepository.save(discipline2);
         disciplineId = savedDiscipline.getId();
@@ -54,13 +54,13 @@ class DisciplineControllerIntegrationTest {
                 .value(disciplineDTO -> {
                     assertEquals(disciplineId, disciplineDTO.id());
                     assertEquals("Discipline1", disciplineDTO.name());
-                    assertEquals(ResultType.TIME_IN_SECONDS, disciplineDTO.resultType());
+                    assertEquals(ResultType.TIME_IN_MILLISECONDS, disciplineDTO.resultType());
                 });
     }
 
     @Test
     void givenDisciplineDTO_whenCreate_thenReturnCreatedDiscipline() {
-        var disciplineDTO = new DisciplineDTO(null, "Discipline3", ResultType.TIME_IN_SECONDS);
+        var disciplineDTO = new DisciplineDTO(null, "Discipline3", ResultType.TIME_IN_MILLISECONDS);
         webTestClient.post()
                 .uri("/disciplines")
                 .bodyValue(disciplineDTO)
@@ -70,13 +70,13 @@ class DisciplineControllerIntegrationTest {
                 .value(createdDisciplineDTO -> {
                     assertNotNull(createdDisciplineDTO.id());
                     assertEquals("Discipline3", createdDisciplineDTO.name());
-                    assertEquals(ResultType.TIME_IN_SECONDS, createdDisciplineDTO.resultType());
+                    assertEquals(ResultType.TIME_IN_MILLISECONDS, createdDisciplineDTO.resultType());
                 });
     }
 
     @Test
     void givenDisciplineIdAndDisciplineDTO_whenUpdate_thenReturnUpdatedDiscipline() {
-        var disciplineDTO = new DisciplineDTO(null, "Discipline3", ResultType.TIME_IN_SECONDS);
+        var disciplineDTO = new DisciplineDTO(null, "Discipline3", ResultType.TIME_IN_MILLISECONDS);
         webTestClient.put()
                 .uri("/disciplines/{id}", disciplineId)
                 .bodyValue(disciplineDTO)
@@ -86,7 +86,7 @@ class DisciplineControllerIntegrationTest {
                 .value(updatedDisciplineDTO -> {
                     assertEquals(disciplineId, updatedDisciplineDTO.id());
                     assertEquals("Discipline3", updatedDisciplineDTO.name());
-                    assertEquals(ResultType.TIME_IN_SECONDS, updatedDisciplineDTO.resultType());
+                    assertEquals(ResultType.TIME_IN_MILLISECONDS, updatedDisciplineDTO.resultType());
                 });
     }
 
